@@ -1,4 +1,8 @@
 require_relative 'Piece'
+require_relative 'NullPiece'
+require_relative 'Pawn'
+require_relative 'SteppingPiece'
+require_relative 'SlidingPiece'
 
 class Board
 
