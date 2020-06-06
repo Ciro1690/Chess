@@ -5,7 +5,7 @@ class Board
     def initialize
         row,col = 8,8
         @rows = Array.new (row) {Array.new(col)}
-        @sentinel = NullPiece.new
+        @sentinel = NullPiece.instance
     end
 
     def [](pos)
@@ -49,7 +49,13 @@ class Board
     end
 
     def pieces
+        @rows[1].each do |pawn|
+            pawn = Pawn.new(:black)
+        end
 
+        @rows[7].each do |pawn|
+            pawn = Pawn.new(:white)
+        end
     end
 
     def dup
@@ -62,5 +68,5 @@ class Board
 end
 
 b = Board.new
-p b
+b.pieces
 
