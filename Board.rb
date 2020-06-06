@@ -2,34 +2,65 @@ require_relative 'Piece'
 
 class Board
 
-    attr_accessor :board
-
     def initialize
-        row,col,default_value = 8,8,Piece.new
-        @board = Array.new (row) {Array.new(col,default_value)}
+        row,col = 8,8
+        @rows = Array.new (row) {Array.new(col)}
+        @sentinel = NullPiece.new
     end
 
     def [](pos)
         x,y = pos
-        board[x][y]
+        @rows[x][y]
     end
 
     def []=(pos,value)
         x,y = pos
-        board[x][y] = value
+        @rows[x][y] = value
     end
 
-    def move_piece(start_pos, end_pos)
-        x,y = start_pos
-        x2,y2 = end_pos
-
-        if board[x][y].pos.nil?
+    def move_piece(color, start_pos, end_pos)
+        if self[start_pos].pos.nil?
             raise "there's no piece at this starting position"
-        elsif !board[x2][y2].valid_move?
+        elsif !self[end_pos].valid_move?
             raise "the piece cannot move to this ending position"
+        else
+            self[end_pos] = self[start_pos]
         end
+    end
+
+    def valid_pos(pos)
+
+    end
+
+    def add_piece(piece, pos)
+
+    end
+
+    def checkmate?(color)
+
+    end
+
+    def in_check?(color)
+
+    end
+
+    def find_king(color)
+
+    end
+
+    def pieces
+
+    end
+
+    def dup
+
+    end
+
+    def move_piece!(color, start_pos, end_pos)
+
     end
 end
 
 b = Board.new
-p b.move_piece([0,0],[6,6])
+p b
+
