@@ -8,18 +8,22 @@ class Board
 
     def initialize
         row,col = 8,8
-        @rows = Array.new (row) {Array.new(col)}
+        @board = Array.new (row) {Array.new(col)}
         @sentinel = NullPiece.instance
     end
 
     def [](pos)
         x,y = pos
-        @rows[x][y]
+        @board[x][y]
     end
 
     def []=(pos,value)
         x,y = pos
-        @rows[x][y] = value
+        @board[x][y] = value
+    end
+
+    def empty?(pos)
+        self[pos].nil?
     end
 
     def move_piece(color, start_pos, end_pos)
@@ -53,12 +57,22 @@ class Board
     end
 
     def pieces
-        @rows[1].each do |pawn|
-            pawn = Pawn.new(:black)
+        @board[0].each do |piece|
+            piece = Piece.new(:black)
         end
-
-        @rows[7].each do |pawn|
-            pawn = Pawn.new(:white)
+        @board[1].each do |pawn|
+            pawn = Pawn.new(:black, :P)
+        end
+        (2..5).each do |index|
+            @board[index].each do |null|
+                null = NullPiece.instance
+            end
+        end
+        @board[6].each do |pawn|
+            pawn = Pawn.new(:white, :P)
+        end
+        @board[7].each do |piece|
+            piece = Piece.new(:white)        
         end
     end
 
@@ -72,5 +86,4 @@ class Board
 end
 
 b = Board.new
-b.pieces
-
+p b.pieces

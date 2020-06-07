@@ -2,14 +2,14 @@ class Piece
 
     attr_accessor :color, :pos, :board
 
-    def initialize(color, board, pos)
+    def initialize(color)
         @color = color
         @board = Board
         @pos = []
     end
 
     def to_s
-
+        
     end
 
     def empty?
