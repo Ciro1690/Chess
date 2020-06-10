@@ -13,9 +13,9 @@ class Pawn < Piece
 
     private
     def at_start_row?
-        if self.pos[0] == 1 && self.color == :black
+        if self.pos[0] == 1 && self.color == :red
             return true
-        elsif self.pos[0] == 6 && self.color == :white
+        elsif self.pos[0] == 6 && self.color == :yellow
             return true
         else
             return false
@@ -23,7 +23,7 @@ class Pawn < Piece
     end
 
     def forward_dir #returns 1 or -1
-        if self.color == :black
+        if self.color == :yellow
             return 1
         else
             return -1

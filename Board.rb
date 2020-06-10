@@ -3,7 +3,8 @@ require 'colorize'
 
 class Board
 
-    attr_reader :board, :sentinel
+    attr_accessor :board
+    attr_reader :sentinel
 
     def initialize
         @sentinel = NullPiece.instance
@@ -12,15 +13,11 @@ class Board
     end
 
     def [](pos)
-        # raise 'invalid pos' if !valid_pos?(pos)
-
         x,y = pos
         @board[x][y]
     end
 
     def []=(pos,value)
-        # raise 'invalid pos' if !valid_pos?(pos)
-
         x,y = pos
         @board[x][y] = value
     end
@@ -30,13 +27,7 @@ class Board
     end
 
     def move_piece(color, start_pos, end_pos)
-        # if self[start_pos].pos.nil?
-        #     raise "there's no piece at this starting position"
-        # elsif !self[end_pos].valid_move?
-        #     raise "the piece cannot move to this ending position"
-        # else
-            self[end_pos] = self[start_pos]
-        #end
+        self[end_pos] = self[start_pos]
     end
 
     def valid_pos?(pos)
@@ -45,8 +36,7 @@ class Board
     end
 
     def add_piece(piece, pos)
-       # raise 'position not empty' unless pos.empty?
-        #self[pos] = piece
+
     end
 
     def checkmate?(color)
@@ -107,5 +97,3 @@ class Board
 
     end
 end
-
-b = Board.new
