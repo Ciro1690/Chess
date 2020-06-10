@@ -5,6 +5,6 @@ class King < Piece
     include Steppable
 
     def symbol
-        :K.colorize(color)
+        '♔'.colorize(color)
     end
 end

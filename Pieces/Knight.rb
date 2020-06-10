@@ -5,6 +5,6 @@ class Knight < Piece
     include Steppable
 
     def symbol
-        :Kn.colorize(color)
+        '♘'.colorize(color)
     end
 end

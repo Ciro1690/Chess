@@ -5,6 +5,6 @@ class Queen < Piece
     include Slideable
 
     def symbol
-        :Q.colorize(color)
+        '♕'.colorize(color)
     end
 end

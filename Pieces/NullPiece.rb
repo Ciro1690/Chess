@@ -1,4 +1,5 @@
 require 'singleton'
+require_relative 'Piece'
 
 class NullPiece < Piece
     include Singleton
@@ -12,6 +13,6 @@ class NullPiece < Piece
     end
 
     def symbol
-
+        '_'
     end
 end
