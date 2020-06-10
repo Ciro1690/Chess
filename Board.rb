@@ -1,23 +1,24 @@
-require_relative 'Piece'
-require_relative 'NullPiece'
-require_relative 'Pawn'
-require_relative 'SteppingPiece'
-require_relative 'SlidingPiece'
+require_relative 'Pieces'
 
 class Board
 
-    def initialize
-        row,col = 8,8
-        @board = Array.new (row) {Array.new(col)}
+    attr_reader :board, :sentinel
+
+    def initialize(fill_board = true)
         @sentinel = NullPiece.instance
+        fill_starting_grid(fill_board)
     end
 
     def [](pos)
+        raise 'invalid pos' if !valid_pos?(pos)
+
         x,y = pos
         @board[x][y]
     end
 
     def []=(pos,value)
+        raise 'invalid pos' if !valid_pos?(pos)
+
         x,y = pos
         @board[x][y] = value
     end
@@ -36,12 +37,13 @@ class Board
         end
     end
 
-    def valid_pos(pos)
-
+    def valid_pos?(pos)
+        pos.all? {|coord| coord.between?(0,7)}
     end
 
     def add_piece(piece, pos)
-
+        raise 'position not empty' unless pos.empty?
+        self[pos] = piece
     end
 
     def checkmate?(color)
@@ -56,23 +58,27 @@ class Board
 
     end
 
-    def pieces
-        @board[0].each do |piece|
-            piece = Piece.new(:black)
+    def fill_pawn_rows(color)
+
+        i = color == :white ? 6 : 1
+        8.times  {|j| Pawn.new(color,self,[i,j])}
+    end
+
+    def fill_back_rows(color)
+        back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+
+        i = color == :white ? 7 : 0
+        back_row.each do |piece, j|
+            piece.new(color,self,[i,j])
         end
-        @board[1].each do |pawn|
-            pawn = Pawn.new(:black, :P)
-        end
-        (2..5).each do |index|
-            @board[index].each do |null|
-                null = NullPiece.instance
-            end
-        end
-        @board[6].each do |pawn|
-            pawn = Pawn.new(:white, :P)
-        end
-        @board[7].each do |piece|
-            piece = Piece.new(:white)        
+    end
+
+    def fill_starting_grid(fill_board)
+        @board = Array.new(8) {Array.new(8,sentinel)}
+        return unless fill_board
+        %i{white black}.each do |color|
+            fill_back_rows(color)
+            fill_pawn_rows(color)
         end
     end
 
@@ -86,4 +92,4 @@ class Board
 end
 
 b = Board.new
-p b.pieces
+p b

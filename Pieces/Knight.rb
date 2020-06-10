@@ -1,7 +1,7 @@
-require_relative 'Pieces'
+require_relative 'Piece'
 require_relative 'SteppingPiece'
 
-class Knight < Pieces
+class Knight < Piece
     include Steppable
 
     def symbol

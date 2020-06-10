@@ -9,15 +9,7 @@ module Steppable
     end
 end
 
-def initialize
-    super(color,board,pos)
-end
-
-def symbol
-    
-end
-
-protected
+private
 def move_diffs
 
 end

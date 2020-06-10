@@ -1,7 +1,7 @@
-require_relative 'Pieces'
+require_relative 'Piece'
 require_relative 'SlidingPiece'
 
-class Rook < Pieces
+class Rook < Piece
     include Slideable
 
     def symbol
