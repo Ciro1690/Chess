@@ -1,4 +1,5 @@
 require_relative 'Pieces'
+require 'colorize'
 
 class Board
 
@@ -7,6 +8,7 @@ class Board
     def initialize
         @sentinel = NullPiece.instance
         fill_starting_grid
+        render_board
     end
 
     def [](pos)
@@ -61,7 +63,7 @@ class Board
 
     def fill_pawn_rows(color)
 
-        i = color == :white ? 6 : 1
+        i = color == :yellow ? 6 : 1
         8.times do |j|
             @board[i][j] = Pawn.new(color,self,[i,j])
         end
@@ -70,7 +72,7 @@ class Board
     def fill_back_rows(color)
         back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
 
-        i = color == :white ? 7 : 0
+        i = color == :yellow ? 7 : 0
         back_row.each_with_index do |piece, j|
             @board[i][j] = piece.new(color,self,[i,j])   
         end
@@ -78,16 +80,20 @@ class Board
 
     def fill_starting_grid
         @board = Array.new(8) {Array.new(8,sentinel)}
-        fill_back_rows(:white)
-        fill_pawn_rows(:white)
-        fill_back_rows(:black)
-        fill_pawn_rows(:black)
+        fill_back_rows(:yellow)
+        fill_pawn_rows(:yellow)
+        fill_back_rows(:red)
+        fill_pawn_rows(:red)
     end
 
     def render_board
-        @board.each do |rows|
-            rows.each do |tile|
-                print tile.symbol
+        @board.each_with_index do |rows,x|
+            rows.each_with_index do |tile,y|
+                if (x + y)  % 2 == 0
+                    print tile.symbol.colorize(:background => :black)
+                else
+                    print tile.symbol.colorize(:background => :white)
+                end 
             end
             puts
         end
@@ -103,4 +109,3 @@ class Board
 end
 
 b = Board.new
-p b.render_board

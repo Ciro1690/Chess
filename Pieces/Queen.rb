@@ -1,10 +1,11 @@
 require_relative 'Piece'
 require_relative 'SlidingPiece'
+require 'colorize'
 
 class Queen < Piece
     include Slideable
 
     def symbol
-        '♕'.colorize(color)
+        ' ♛'.colorize(color)
     end
 end

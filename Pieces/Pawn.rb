@@ -1,9 +1,10 @@
 require_relative 'Piece'
+require 'colorize'
 
 class Pawn < Piece
 
     def symbol
-        '♙'.colorize(color)
+        ' ♟︎'.colorize(color)
     end
     
     def moves
