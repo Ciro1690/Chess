@@ -1,14 +1,14 @@
 class Piece
 
     attr_reader :color, :board
-    attr_accessor :pos 
+    attr_accessor :pos, :symbol
 
     def initialize(color,board,pos)
         # raise 'invalid color' unless %i(white black).include?(color)
         # raise 'invalid pos' unless board.valid_pos?(pos)
 
-        @color,@board,@pos = color,board,pos
-
+        @color,@board,@pos,@symbol = color,board,pos,""
+        declare_symbol
         board.add_piece(self,pos)
     end
 

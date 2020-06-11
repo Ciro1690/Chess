@@ -5,7 +5,7 @@ require 'colorize'
 class Knight < Piece
     include Steppable
 
-    def symbol
-        ' ♞'.colorize(color)
+    def declare_symbol
+        @symbol = ' ♞'.colorize(color)
     end
 end

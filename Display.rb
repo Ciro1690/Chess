@@ -4,16 +4,12 @@ require 'colorize'
 
 class Display
 
-    attr_reader :board
+    attr_reader :board, :cursor
 
     def initialize(board)
         @board = board
         @cursor = Cursor.new([0,0], @board)
-        set_cursor
     end
 
-    def set_cursor
-        pos = @cursor.cursor_pos
-        print @board[pos].symbol.colorize(:background => :orange)
-    end
+
 end

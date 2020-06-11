@@ -1,18 +1,11 @@
-require 'singleton'
+#require 'singleton'
 require_relative 'Piece'
+require 'colorize'
 
 class NullPiece < Piece
-    include Singleton
- 
-    def initialize
- 
-    end
+    #include Singleton
 
-    def moves
-    
-    end
-
-    def symbol
-        '  '
+    def declare_symbol
+        @symbol = '  '.colorize(color)
     end
 end

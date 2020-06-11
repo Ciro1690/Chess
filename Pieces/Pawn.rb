@@ -3,8 +3,8 @@ require 'colorize'
 
 class Pawn < Piece
 
-    def symbol
-        ' ♟︎'.colorize(color)
+    def declare_symbol
+        @symbol = ' ♟︎'.colorize(color)
     end
     
     def moves

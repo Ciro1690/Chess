@@ -5,8 +5,8 @@ require 'colorize'
 class Bishop < Piece
     include Slideable
 
-    def symbol
-        ' ♝'.colorize(color)
+    def declare_symbol
+        @symbol = ' ♝'.colorize(color)
     end
 
 end

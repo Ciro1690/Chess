@@ -1,15 +1,17 @@
 require_relative 'Pieces'
 require 'colorize'
+require_relative 'Cursor'
 
 class Board
 
-    attr_accessor :board
+    attr_accessor :board; :cursor
     attr_reader :sentinel
 
     def initialize
-        @sentinel = NullPiece.instance
+        @cursor = Cursor.new([0,0], @board)
+        #@sentinel = NullPiece.instance
         fill_starting_grid
-        render_board
+        #render_board
     end
 
     def [](pos)
@@ -52,7 +54,6 @@ class Board
     end
 
     def fill_pawn_rows(color)
-
         i = color == :yellow ? 6 : 1
         8.times do |j|
             @board[i][j] = Pawn.new(color,self,[i,j])
@@ -68,21 +69,39 @@ class Board
         end
     end
 
-    def fill_starting_grid
-        @board = Array.new(8) {Array.new(8,sentinel)}
-        fill_back_rows(:yellow)
-        fill_pawn_rows(:yellow)
-        fill_back_rows(:red)
-        fill_pawn_rows(:red)
+    def fill_blank_rows(color) 
+        i = 2
+        while i < 6
+            8.times do |j|
+                @board[i][j] = NullPiece.new(color,self,[i,j])
+            end 
+            i+=1 
+        end     
     end
 
-    def render_board
+    def fill_starting_grid
+        @board = Array.new(8) {Array.new(8)}
+        fill_back_rows(:yellow)
+        fill_pawn_rows(:yellow)
+        fill_blank_rows(:clear)
+        fill_back_rows(:red)
+        fill_pawn_rows(:red)
+
+    end
+
+    def render_board(cursor_pos=[0,0])
+        system("clear")
+        position = cursor_pos
+        i,j = position
+
         @board.each_with_index do |rows,x|
             rows.each_with_index do |tile,y|
-                if (x + y)  % 2 == 0
-                    print tile.symbol.colorize(:background => :black)
+                if tile == @board[i][j]
+                    print @board[x][y].declare_symbol.colorize(:background => :red)
+                elsif (x + y)  % 2 == 0
+                    print tile.declare_symbol.colorize(:background => :black)
                 else
-                    print tile.symbol.colorize(:background => :white)
+                    print tile.declare_symbol.colorize(:background => :white)
                 end 
             end
             puts
